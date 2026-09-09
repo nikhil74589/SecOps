@@ -33,7 +33,7 @@ jobs:
           echo "${{ github.event.client_payload.commit_sha }}"
           echo "Checked Out Commit SHA:"
           git -C application rev-parse HEAD
-.
+
       - name: Step 4 - Scan for Application Secrets
         run: |
           docker run --rm \
@@ -44,7 +44,7 @@ jobs:
             --no-git \
             --no-banner \
             --exit-code 1
-            
+
       - name: Step 4A - List Scanned Files
         if: always()
         run: |
