@@ -73,18 +73,19 @@ jobs:
             -Dsonar.host.url=http://localhost:9000 \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
-      - name: Scan Frontend Code
-        run: |
-          docker run --rm \
-            --network host \
-            -v "${GITHUB_WORKSPACE}/application/frontend:/usr/src" \
-            sonarsource/sonar-scanner-cli:latest \
-            -Dsonar.projectKey=hireflow-frontend \
-            -Dsonar.projectName=hireflow-frontend \
-            -Dsonar.sources=/usr/src \
-            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/coverage/** \
-            -Dsonar.host.url=http://localhost:9000 \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+      # Frontend scan temporarily disabled — testing backend first
+      # - name: Scan Frontend Code
+      #   run: |
+      #     docker run --rm \
+      #       --network host \
+      #       -v "${GITHUB_WORKSPACE}/application/frontend:/usr/src" \
+      #       sonarsource/sonar-scanner-cli:latest \
+      #       -Dsonar.projectKey=hireflow-frontend \
+      #       -Dsonar.projectName=hireflow-frontend \
+      #       -Dsonar.sources=/usr/src \
+      #       -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/coverage/** \
+      #       -Dsonar.host.url=http://localhost:9000 \
+      #       -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
       - name: Show SonarQube Dashboard Links
         if: always()
@@ -92,5 +93,4 @@ jobs:
           echo "====================================="
           echo "SonarQube Analysis Complete"
           echo "====================================="
-          echo "Backend Dashboard:  http://localhost:9000/dashboard?id=hireflow-backend"
-          echo "Frontend Dashboard: http://localhost:9000/dashboard?id=hireflow-frontend"
+          echo "Backend Dashboard: http://${{ vars.SONAR_HOST }}/dashboard?id=hireflow-backend"
