@@ -118,6 +118,8 @@ jobs:
             -Dsonar.projectKey=hireflow-backend \
             -Dsonar.projectName=hireflow-backend \
             -Dsonar.sources=/usr/src \
+            -Dsonar.sources=. \
+            -Dsonar.working.directory=/usr/src/.scannerwork
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/coverage/** \
             -Dsonar.host.url=http://54.84.55.118:9000 \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
